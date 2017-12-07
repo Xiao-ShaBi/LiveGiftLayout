@@ -55,15 +55,17 @@ public class Gift1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gift1);
 
-
+//////////////////////////
         showGiftMsgList();
 
         initGiftLayout();
 
         final List<GiftBean.GiftListBean> giftListBeen = fromNetData();//来自网络礼物图片
+
         List<GiftModel> giftModels = toGiftModel(giftListBeen);//转化为发送礼物的集合
 
         GiftPanelControl giftPanelControl = new GiftPanelControl(this, mViewpager, mRecyclerView, mDotsLayout);
+        
         giftPanelControl.init(giftModels);//这里如果为null则加载本地礼物图片
         giftPanelControl.setGiftListener(new GiftPanelControl.GiftListener() {
             @Override
@@ -100,7 +102,7 @@ public class Gift1Activity extends AppCompatActivity {
                             giftModel.setGiftId(mGiftName).setGiftName("礼物名字").setGiftCount(giftnum).setGiftPic(mGifturl)
                                     .setSendUserId("1234").setSendUserName("吕靓茜").setSendUserPic("").setSendGiftTime(System.currentTimeMillis())
                                     .setCurrentStart(currentStart);
-                            if(currentStart){
+                            if (currentStart) {
                                 giftModel.setHitCombo(giftnum);
                             }
 //                            giftModel.setJumpCombo(10);
@@ -130,7 +132,7 @@ public class Gift1Activity extends AppCompatActivity {
             }
         });
 
-        
+
         findViewById(R.id.btn_clear_gift).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,11 +161,11 @@ public class Gift1Activity extends AppCompatActivity {
     }
 
     //模拟从网络获取礼物url的集合
-    private List<GiftBean.GiftListBean> fromNetData(){
+    private List<GiftBean.GiftListBean> fromNetData() {
         List<GiftBean.GiftListBean> list = new ArrayList<>();
         try {
-            InputStream in= getAssets().open("gift.json");
-            InputStreamReader json=new InputStreamReader(in);
+            InputStream in = getAssets().open("gift.json");
+            InputStreamReader json = new InputStreamReader(in);
             Gson gson = new Gson();
             GiftBean giftBean = gson.fromJson(json, GiftBean.class);
             list = giftBean.getGiftList();
@@ -173,10 +175,10 @@ public class Gift1Activity extends AppCompatActivity {
         return list;
     }
 
-    private List<GiftModel> toGiftModel(List<GiftBean.GiftListBean> datas){
+    private List<GiftModel> toGiftModel(List<GiftBean.GiftListBean> datas) {
         List<GiftModel> giftModels = new ArrayList<>();
         GiftModel giftModel;
-        for (int i = 0; i < datas.size(); i++){
+        for (int i = 0; i < datas.size(); i++) {
             GiftBean.GiftListBean giftListBean = datas.get(i);
             giftModel = new GiftModel();
             giftModel.setGiftName(giftListBean.getGiftName()).setGiftPic(giftListBean.getGiftPic()).setGiftPrice(giftListBean.getGiftPrice());
@@ -199,6 +201,7 @@ public class Gift1Activity extends AppCompatActivity {
         tvGiftNum = (TextView) findViewById(R.id.toolbox_tv_gift_num);
         btnGift = (ImageView) findViewById(R.id.toolbox_iv_face);
 
+        //////////////////////////////////
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_gift);
         mViewpager = (ViewPager) findViewById(R.id.toolbox_pagers_face);
         mDotsLayout = (LinearLayout) findViewById(R.id.face_dots_container);

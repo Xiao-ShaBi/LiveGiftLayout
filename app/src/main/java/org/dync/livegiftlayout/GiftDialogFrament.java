@@ -26,6 +26,7 @@ import java.util.List;
 
 /**
  * Created by KathLine on 2017/1/10.
+ * 虚拟键盘
  */
 
 public class GiftDialogFrament extends DialogFragment {
